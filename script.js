@@ -56,6 +56,22 @@ document.addEventListener("DOMContentLoaded", function() {
         flippedCards = [];
     }
 
+    function showCardsTemporarily() {
+        const allCards = document.querySelectorAll(".card");
+        allCards.forEach(card => {
+            card.textContent = card.dataset.image;
+            card.classList.add("flipped");
+        });
+
+        // Ocultar las cartas después de 3 segundos
+        setTimeout(() => {
+            allCards.forEach(card => {
+                card.textContent = "❓";
+                card.classList.remove("flipped");
+            });
+        }, 3000); // 3000 ms = 3 segundos
+    }
+
     function resetGame() {
         gameBoard.innerHTML = "";
         matchedCards = [];
@@ -64,6 +80,9 @@ document.addEventListener("DOMContentLoaded", function() {
             const card = createCard(image);
             gameBoard.appendChild(card);
         });
+
+        // Mostrar las cartas temporalmente al inicio del juego
+        showCardsTemporarily();
     }
 
     resetButton.addEventListener("click", resetGame);
